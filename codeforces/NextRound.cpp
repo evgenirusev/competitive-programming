@@ -3,7 +3,7 @@ using namespace std;
 
 int main()
 {
-    long long n, k, contestantsThatAdvance;
+    long long n, k, contestantsThatAdvance = 0;
     int a[100];
 
     cin >> n >> k;
