@@ -3,6 +3,8 @@ using namespace std;
 
 string smallest;
 string largest;
+void computeSmallest(long long m, string current, string target, string* result);
+void computeLargest(long long m, string current, string target, string* result);
 
 long long getDigitsSum(string n) {
     long long digitsSum = 0;
@@ -13,30 +15,44 @@ long long getDigitsSum(string n) {
     return digitsSum;
 }
 
-void compute(long long m, string current, string target, string* result) {
+void handleNumber(long long m, string current, string target, string* result, long long i) {
+    string currentNum = current + to_string(i);
+
+    if (to_string(getDigitsSum(currentNum)) == target) {
+        *result = currentNum + string(m - 1, '0'); return;
+    }
+
+    computeLargest(m - 1, currentNum, target, result);
+
+    if (!result->empty()) {
+        return;
+    }
+}
+
+
+void computeSmallest(long long m, string current, string target, string* result) {
     if (m <= 0) {
         return;
     }
 
     for (long long i = 0; i < 10; i++) {
-        string currentNum = current + to_string(i);
+        handleNumber(m, current, target, result, i);
+    }
+}
 
-        if (to_string(getDigitsSum(currentNum)) == target) {
-            *result = currentNum + string(m - 1, '0');
-            return;
-        }
+void computeLargest(long long m, string current, string target, string* result) {
+    if (m <= 0) {
+        return;
+    }
 
-        compute(m - 1, currentNum, target, result);
-
-        if (!result->empty()) {
-            return;
-        }
+    for (long long i = 9; i >= 0; i--) {
+        handleNumber(m, current, target, result, i);
     }
 }
 
 void findSmallest(long long m, string target, string* result) {
     for (long long i = 1; i < 10; i++) {
-        compute(m - 1, to_string(i), target, result);
+        computeSmallest(m - 1, to_string(i), target, result);
 
         if (!smallest.empty()) {
             break;
@@ -46,7 +62,7 @@ void findSmallest(long long m, string target, string* result) {
 
 void findLargest(long long m, string target, string* result) {
     for (long long i = 9; i >= 1; i--) {
-        compute(m - 1, to_string(i), target, result);
+        computeLargest(m - 1, to_string(i), target, result);
 
         if (!largest.empty()) {
             break;
