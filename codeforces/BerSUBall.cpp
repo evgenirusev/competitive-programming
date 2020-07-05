@@ -3,10 +3,9 @@ using namespace std;
 
 int main()
 {
-    int n, m, maxPairs = 0;
+    int n, m, pairs = 0;
     cin >> n;
 
-    // will initially implement with array, then consider using hash map
     vector<int> boys = {};
     for (int i = 0; i < n; i++) {
         int boySkill;
@@ -25,29 +24,17 @@ int main()
     sort(boys.begin(), boys.end());
     sort(girls.begin(), girls.end());
 
-    for (int i = 0; i < m; i++) {
-        int girlSkill = girls[i];
-
-        int bestMatch = -1;
-        for (int j = 0; j < boys.size(); j++) {
-            int diff = abs(boys[j] - girlSkill);
-
-            if (diff == 1) {
-                bestMatch = j;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            if (abs(boys[i] - girls[j]) < 2) {
+                pairs++;
+                girls[j] = INT_MAX;
                 break;
             }
-
-            if (diff == 0) {
-                bestMatch = j;
-            }
         }
+    } 
 
-        if (bestMatch != -1) {
-            maxPairs++;
-            boys.erase(boys.begin() + bestMatch);
-        }
-    }
-
-    cout << maxPairs;
+    cout << pairs;
     return 0;
 }
+
