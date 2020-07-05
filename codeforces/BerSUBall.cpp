@@ -15,9 +15,18 @@ int main()
     }
 
     cin >> m;
+    vector<int> girls = {};
     for (int i = 0; i < m; i++) {
         int girlSkill;
         cin >> girlSkill;
+        girls.push_back(girlSkill);
+    }
+
+    sort(boys.begin(), boys.end());
+    sort(girls.begin(), girls.end());
+
+    for (int i = 0; i < m; i++) {
+        int girlSkill = girls[i];
 
         int bestMatch = -1;
         for (int j = 0; j < boys.size(); j++) {
