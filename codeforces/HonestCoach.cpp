@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-#include <climits>
 using namespace std;
 
 int main() {
@@ -17,21 +16,18 @@ int main() {
             players.push_back(player);
         }
 
-        int best = INT_MAX;
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (i != j) {
-                    int diff = abs(players[i] - players[j]);
-                    if (diff < best) {
-                        best = diff;
-                    }
-                }
+        sort(players.begin(), players.end());
+
+        int diff = INT_MAX;
+        for (int i = 0; i < n - 1; i++) {
+            int currDiff = abs(players[i] - players[i + 1]);
+            if (currDiff < diff) {
+                diff = currDiff;
             }
         }
 
-        cout << best << endl;
+        cout << diff << endl;
     }
-
 
     return 0;
 }
