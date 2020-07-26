@@ -1,25 +1,27 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main()
-{
-    string s;
-    cin >> s;
+int main() {
+    string word;
+    cin >> word;
+    
+    string keyword = "hello";
+    int keywordIndex = 0;
+    for (int i = 0; i < word.length(); i++) {
+        if (word.at(i) == keyword.at(keywordIndex)) {
+            keywordIndex++;
 
-    string kw = "hello";
-    int kwPointer = 0;
-    for (int i = 0; i < s.length(); i++) {
-        if (s[i] == kw[kwPointer]) {
-            kwPointer++;
-        }
-
-        if (kwPointer >= kw.length()) {
-            cout << "YES";
-            return 0;
+            if (keywordIndex > keyword.length() - 1) {
+                break;
+            }
         }
     }
 
-    cout << "NO";
+    if (keywordIndex > keyword.length() - 1) {
+        cout << "YES";
+    } else {
+        cout << "NO";
+    }
 
     return 0;
 }
